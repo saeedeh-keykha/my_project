@@ -1,87 +1,131 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
-#include <string>
+#include <cmath>
 
 using namespace std;
 
-
-double average(double grades[], int size) {
-    double sum = 0;
-    for (int i = 0; i < size; i++) {
-        sum += grades[i];
+void Q1(){
+    for(int i = 5; i <= 200; i += 5) {
+        cout << i << endl;
     }
-    return sum , size;
 }
 
-void sortGrades(double grades[], int size) {
-    sort(grades, grades + size);
-}
-
-
-void inputStudentData(string names[], string studentNumbers[], double grades[][5], double averages[], int n, string subjects[]) {
-    for (int i = 0; i < n; i++) {
-        cout << "Enter name student " << i + 1 << " : ";
-        getline(cin, names[i]);
-        cout << "Enter student number " << names[i] << ": ";
-        getline(cin, studentNumbers[i]);
-
-        cout << "Enter grades for 5 subjects:\n";
-        for (int j = 0; j < 5; j++) {
-            cout << subjects[j] <<": " << grades[i] [j] << " ";
-            cin >> grades[i][j];
+    double f(double x) {
+        if (x > 1) {
+            return x * x * x * x - 2 * x * x + 5 * x - 3;
         }
+        else if (x == 1){
+            return -2;
+        }
+        else {
+            return 4 * x * x * x - x * (x + 1) - 1;
+        }
+    }
 
+void Q3() {
+    int num;
+    cout << " Enter the desired one: ";
+    cin >> num;
 
-        averages[i] = average(grades[i], 5);
-        cin.ignore();
+    bool isPrime = true;
+
+    if (num <= 1) {
+        isPrime = false;
+    }
+    for (int i = 2; i <= sqrt(num); i++){
+        if (num % i == 0) {
+            isPrime = false;
+            break;
+        }
+    }
+    if(isPrime)
+        cout << num << "it is a prime number" << endl;
+    else
+        cout << num << "it is not a prime number" << endl;
+}
+void Q4() {
+    int num;
+    cout << "Enter the desired one: ";
+    cin >> num;
+
+    for (int i = num + 1; i <= num + 6; i++) {
+        if(i % 2 == 0) {
+            cout << i << endl;
+        }
     }
 }
+void Q5() {
+    int a, b;
+    cout << " Enter the number a: ";
+    cin >> a;
+    cout << "Enter the number b: ";
+    cin >> b;
 
+    int result = 1;
+    for (int i = 0; i < b; i++){
+        result *= a;
+    }
+    cout << "a^b = " << result << endl;
+}
 
-void sortStudents(string names[], string studentNumbers[], double averages[], double grades[][5], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = i + 1; j < n; j++) {
-            if (averages[i] < averages[j] || (averages[i] == averages[j] && studentNumbers[i] > studentNumbers[j])) {
+void displayMenu() {
+    cout << "_______________" << endl;
+    cout << "choose one of the options below: " << endl;
+    cout << "a. Q1: show 5, 10, ...,200 " << endl;
+    cout << "b. Q2: f(x) " <<endl;
+    cout << "c. Q3: prime number "<< endl;
+    cout << "d. Q4: Tree Even numbers " << endl;
+    cout << "e. Q5: a^b " << endl;
+    cout << "_____________" << endl;
+}
 
-                swap(averages[i], averages[j]);
+int main()
+{
+    long long studentNumbers;
+    int questionNum;
+    char continueAnswer;
 
-                swap(names[i], names[j]);
+    cout << "Enter student number: ";
+    cin >> studentNumbers;
 
-                swap(studentNumbers[i], studentNumbers[j]);
+    if (to_string(studentNumbers).length() != 10){
+        cout << "student number must be 10 digits. " << endl;
+        return 1;
+    }
 
-                for (int k = 0; k < 5; k++) {
-                    swap(grades[i][k], grades[j][k]);
-                }
+    do{
+        displayMenu();
+        cout << "Enter the question number(1-5): ";
+        cin >> questionNum;
+
+        switch (questionNum) {
+        case 1:
+            Q1();
+            break;
+        case 2:
+            {
+                double x;
+                cout << "Enter the value of x: ";
+                cin >> x;
+                cout << "f(" << x << ") = " << f(x) << endl;
             }
+            break;
+        case 3:
+            Q3();
+            break;
+        case 4:
+            Q4();
+            break;
+        case 5:
+            Q5();
+            break;
+        default:
+            cout << " Invalid, Enter a number between 1 and 5." << endl;
         }
+        cout << "Do you want to continue (Y/N)? ";
+        cin >> continueAnswer;
     }
-}
-
-
-int main() {
-    int n = 3;
-    string names[n];
-    string studentNumbers[n];
-    double grades[n][5];
-    double averages[n];
-
-    string subjects[5] = {"lesson1", "lesson2", "lesson3", "lesson4", "lesson5"};
-
-    inputStudentData(names, studentNumbers, grades, averages, n, subjects);
-
-    sortStudents(names, studentNumbers, averages, grades, n);
-
-    cout << "\nSorted student data based on average grades:\n";
-    for (int i = 0; i < n; i++) {
-        cout << "Name: " << names[i]
-             << ", Student Number: " << studentNumbers[i]
-             << ", Average: " << averages[i] << ", Grades: ";
-        for (int j = 0; j < 5; j++) {
-            cout << subjects[j] << ": " << grades[i][j] << " ";
-        }
-        cout << endl;
-    }
+    while (continueAnswer == 'y' || continueAnswer == 'Y' );
+    cout << "the end" << endl;
 
     return 0;
 }
