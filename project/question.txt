@@ -1,0 +1,13 @@
+implement and run the following menu.
+
+1. Enter Your student number.
+--------------------------------------------------------------------
+2. Enter Question number (number of Homework#2).
+a. Q1: Show 5, 10, …, 200
+b. Q4: f(x)
+c. Q5: Prime number
+d. Q13: Three Even numbers
+e. An arbitrary example (from our class)
+--------------------------------------------------------------------
+3. Do you want to continue (Y/N) ?
+Enter your choice:
